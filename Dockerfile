@@ -1,7 +1,7 @@
-FROM alpine:3.10
+FROM alpine
 
-COPY LICENSE README.md /
+RUN apk -U add ansible bash
 
-COPY entrypoint.sh /entrypoint.sh
+COPY main.sh /
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/main.sh"]

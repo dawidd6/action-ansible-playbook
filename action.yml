@@ -1,12 +1,18 @@
-name: 'Container Action Template'
-description: 'Get started with Container actions'
-author: 'GitHub'
-inputs: 
-  myInput:
-    description: 'Input to use'
-    default: 'world'
+name: Run Ansible playbook
+description: Execute Ansible playbook on selected hosts
+branding:
+  color: red
+  icon: play
+inputs:
+  playbook:
+    description: Ansible playbook filepath
+    required: true
+  key:
+    description: SSH private key used to connect to the host
+    required: false
+  options:
+    description: Extra options that should be passed to ansible-playbook command
+    required: false
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.myInput }}
+  using: docker
+  image: Dockerfile
