@@ -21,7 +21,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh -v -o StrictHostKeyChecking=no alpine exit
+          ssh -v -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no user@alpine exit
       - name: Run
         uses: ./
         with:
