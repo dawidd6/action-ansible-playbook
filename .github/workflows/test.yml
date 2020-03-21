@@ -20,8 +20,8 @@ jobs:
           apk -U add openssh
           mkdir -p ~/.ssh
           echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
-          chmod 400 ~/.ssh/id_rsa
-          ssh -o StrictHostKeyChecking=no alpine exit
+          chmod 600 ~/.ssh/id_rsa
+          ssh -v -o StrictHostKeyChecking=no alpine exit
       - name: Run
         uses: ./
         with:
