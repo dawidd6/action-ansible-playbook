@@ -17,8 +17,11 @@ jobs:
         uses: actions/checkout@v2
       - name: Test
         run: |
-          ping -c 3 alpine
-          nc -z alpine 22
+          apk -U add openssh
+          mkdir -p ~/.ssh
+          echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+          chmod 400 ~/.ssh/id_rsa
+          ssh -o StrictHostKeyChecking=no alpine exit
       - name: Run
         uses: ./
         with:
