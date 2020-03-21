@@ -19,5 +19,5 @@ jobs:
           playbook: playbook.yml
           key: ${{secrets.SSH_PRIVATE_KEY}}
           options: |
-            --inventory user@alpine,
+            --inventory root@alpine,
             --verbose
