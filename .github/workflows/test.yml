@@ -5,6 +5,11 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      host:
+        image: dawidd6/alpine-for-ansible
+        env:
+          SSH_PUBLIC_KEY: ${{secrets.SSH_PUBLIC_KEY}}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -12,7 +17,7 @@ jobs:
         uses: ./
         with:
           playbook: playbook.yml
+          key: ${{secrets.SSH_PRIVATE_KEY}}
           options: |
-            --inventory=localhost,
-            --connection=local
+            --inventory=user@host,
             --verbose
