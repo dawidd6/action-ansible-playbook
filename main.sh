@@ -11,16 +11,20 @@ if test -z "$playbook"; then
     exit 1
 fi
 
-if test -n "$key"; then
-    mkdir -p ~/.ssh
-    echo "$key" > ~/.ssh/id_rsa
-    chmod 400 ~/.ssh/id_rsa
+if test -z "$key"; then
+    echo "You need to specify 'key' input (SSH private key)"
+    exit 1
 fi
+
+mkdir -p "$HOME/.ssh"
+echo "$key" > "$HOME/.ssh/id_rsa"
+chmod 600 "$HOME/.ssh/id_rsa"
 
 echo "$options"
 echo "$playbook"
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_FORCE_COLOR=True
+export ANSIBLE_PRIVATE_KEY_FILE="$HOME/.ssh/id_rsa"
 
 ansible-playbook $options $playbook
