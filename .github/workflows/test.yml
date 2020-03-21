@@ -5,8 +5,6 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: alpine
     services:
       alpine:
         image: dawidd6/alpine-for-ansible
@@ -15,13 +13,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Test
-        run: |
-          apk -U add openssh
-          mkdir -p ~/.ssh
-          echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh -v -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no user@alpine exit
       - name: Run
         uses: ./
         with:
