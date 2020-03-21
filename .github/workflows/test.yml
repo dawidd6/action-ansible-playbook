@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: List
+        run: docker ps
       - name: Run
         uses: ./
         with:
