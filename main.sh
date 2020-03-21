@@ -17,10 +17,8 @@ if test -n "$key"; then
     chmod 400 ~/.ssh/id_rsa
 fi
 
-if test -n "$options"; then
-    #options="$(echo "$options" | tr '\n' ' ')"
-    echo "OPTIONS: $options"
-fi
+echo "$options"
+echo "$playbook"
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_FORCE_COLOR=True
