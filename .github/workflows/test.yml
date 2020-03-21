@@ -5,21 +5,25 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+    container:
+      image: alpine
     services:
-      host.domain:
+      alpine:
         image: dawidd6/alpine-for-ansible
         env:
           SSH_PUBLIC_KEY: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCz6k3s62Sc3NsOXwx+3YlMKlSOC4sdnzbkKkS3RueS3gngbnCr6bLnVuVQcH2WHQ+5oPlAWRU3KQQsEjxYz/4pA7iJ8PiUlnMeHWwVItgPjfo/o80N3qnyrEu7L2JpcuDVBoeb8P2HxCu87pNaQOaEbao13uuB5+UAQVPTSEU4+QpD48TKlbv38CGl+UzKxzUYOPYCovg0iIXYgf+qO6qTyvMkRpgNFU142Ly1TZJjVtdNH2cLxKtBkPSB8s11QG1UgzkgnOPgAP9kE2iE62Kdbj6NGBCUkj2I3YtPz+rBCcEXO6nghV/rPuCddNuo/+2Sp8DSjAaRBRTxlu5ehlDktZK2ekRhaXjd43qxPrWEXcC3kUi1DigprX25q3Bm+tuqcCQ8pFa9WV1eonhzg5BEhJcMWAnp4iXZ0mqxuVWeRscaFt7m98u9pG/KzHsHsQu5sMPKPt61O9nKqHMqrJqgkL+nyakIGtovjoxLQqhoQ2N41Wzyz2Hhf+f25zQBDPM= root@79192ad4f565
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: List
-        run: docker ps
+      - name: Test
+        run: |
+          ping -c 3 alpine
+          nc -z alpine 22
       - name: Run
         uses: ./
         with:
           playbook: playbook.yml
           key: ${{secrets.SSH_PRIVATE_KEY}}
           options: |
-            --inventory=user@host.domain,
+            --inventory=user@alpine,
             --verbose
