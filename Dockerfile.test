@@ -9,7 +9,7 @@ RUN echo "PasswordAuthentication no" > /etc/ssh/sshd_config
 RUN echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 RUN echo "AuthorizedKeysFile /etc/ssh/authorized_keys" >> /etc/ssh/sshd_config
 RUN echo "PermitRootLogin no" >> /etc/ssh/sshd_config
-RUN echo "Subsystem	sftp /usr/lib/openssh/sftp-server" >> /etc/ssh/sshd_config
+RUN echo "Subsystem	sftp /usr/lib/ssh/sftp-server" >> /etc/ssh/sshd_config
 
 RUN ssh-keygen -A
 
