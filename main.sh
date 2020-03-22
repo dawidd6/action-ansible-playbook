@@ -25,6 +25,5 @@ echo "$playbook"
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_FORCE_COLOR=True
-export ANSIBLE_PRIVATE_KEY_FILE="$HOME/.ssh/id_rsa"
 
 ansible-playbook $options $playbook
