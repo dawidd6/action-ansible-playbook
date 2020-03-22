@@ -23,7 +23,7 @@ jobs:
             -w /wd \
             -e INPUT_PLAYBOOK=playbook.yml \
             -e INPUT_KEY="${{secrets.SSH_PRIVATE_KEY}}" \
-            -e INPUT_OPTIONS="-e host=host -e user=user" \
+            -e INPUT_OPTIONS="--inventory hosts --limit remote" \
             action
       - name: Test local
         uses: ./
@@ -31,7 +31,5 @@ jobs:
           playbook: playbook.yml
           key: ${{secrets.SSH_PRIVATE_KEY}}
           options: |
-            -e host=localhost
-            -e user=root
-            -c local
-            -v
+            --inventory hosts
+            --limit local
