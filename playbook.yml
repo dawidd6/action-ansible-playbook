@@ -1,6 +1,5 @@
 - name: Test Action
-  hosts: "{{ host }}"
-  remote_user: "{{ user }}"
+  hosts: all
   tasks:
     - name: Copy action.yml
       copy:
