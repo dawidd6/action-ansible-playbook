@@ -12,8 +12,19 @@ jobs:
         run: |
           docker build -t host -f Dockerfile.test .
           docker build -t action -f Dockerfile .
-          docker run -d --name host -e SSH_PUBLIC_KEY="${{secrets.SSH_PUBLIC_KEY}}" host
-          docker run -t --name action --link host -v $PWD:/wd -w /wd -e INPUT_PLAYBOOK=playbook.yml -e INPUT_KEY="${{secrets.SSH_PRIVATE_KEY}}" action
+          docker run -d \
+            --name host \
+            -e SSH_PUBLIC_KEY="${{secrets.SSH_PUBLIC_KEY}}" \
+            host
+          docker run -t \
+            --name action \
+            --link host \
+            -v $PWD:/wd \
+            -w /wd \
+            -e INPUT_PLAYBOOK=playbook.yml \
+            -e INPUT_KEY="${{secrets.SSH_PRIVATE_KEY}}" \
+            -e INPUT_OPTIONS="-e host=host -e user=user" \
+            action
       - name: Test local
         uses: ./
         with:
