@@ -1,6 +1,6 @@
 FROM alpine
 
-RUN apk -U add ansible bind-tools
+RUN apk -U add ansible
 
 COPY main.sh /
 
