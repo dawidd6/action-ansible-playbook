@@ -10,8 +10,14 @@ An action that executes given Ansible playbook on selected hosts.
   with:
     playbook: deploy.yml
     key: ${{secrets.SSH_PRIVATE_KEY}}
+    inventory: |
+      [all]
+      example.com
+
+      [group1]
+      example.com
+    vault_password: ${{secrets.VAULT_PASSWORD}}
     options: |
-      --inventory hosts
       --limit dev
       --extra-vars hello=there
       --verbose
