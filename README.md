@@ -6,7 +6,7 @@ An action that executes given Ansible playbook on selected hosts.
 
 ```yaml
 - name: Run playbook
-  uses: dawidd6/action-ansible-playbook
+  uses: dawidd6/action-ansible-playbook@master
   with:
     playbook: deploy.yml
     key: ${{secrets.SSH_PRIVATE_KEY}}
