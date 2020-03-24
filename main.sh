@@ -12,17 +12,14 @@ if test -z "$playbook"; then
     exit 1
 fi
 
-if test -z "$directory"; then
-    echo "You need to specify 'directory' input (root Ansible project directory)"
-    exit 1
-fi
-
 if test -z "$key"; then
     echo "You need to specify 'key' input (SSH private key)"
     exit 1
 fi
 
-cd "$directory"
+if test -n "$directory"; then
+    cd "$directory"
+fi
 
 mkdir -p "$HOME/.ssh"
 echo "$key" > "$HOME/.ssh/id_rsa"
