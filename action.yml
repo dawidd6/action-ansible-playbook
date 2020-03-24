@@ -10,7 +10,7 @@ inputs:
   directory:
     description: Root directory of Ansible project
     required: false
-    default: ${{github.workspace}}
+    default: ./
   key:
     description: SSH private key used to connect to the host
     required: true
