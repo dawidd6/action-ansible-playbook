@@ -22,7 +22,7 @@ jobs:
             -v $PWD:/wd \
             -w /wd \
             -e INPUT_PLAYBOOK="playbook.yml" \
-            -e INPUT_DIRECTORY="${{github.workspace}}" \
+            -e INPUT_DIRECTORY="./" \
             -e INPUT_KEY="${{secrets.SSH_PRIVATE_KEY}}" \
             -e INPUT_OPTIONS="--inventory hosts --limit remote" \
             action
