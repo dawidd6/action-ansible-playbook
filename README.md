@@ -9,6 +9,7 @@ An action that executes given Ansible playbook on selected hosts.
   uses: dawidd6/action-ansible-playbook@master
   with:
     playbook: deploy.yml
+    directory: ./
     key: ${{secrets.SSH_PRIVATE_KEY}}
     options: |
       --inventory hosts

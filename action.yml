@@ -7,6 +7,9 @@ inputs:
   playbook:
     description: Ansible playbook filepath
     required: true
+  directory:
+    description: Root directory of Ansible project (defaults to current)
+    required: false
   key:
     description: SSH private key used to connect to the host
     required: true

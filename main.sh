@@ -3,6 +3,7 @@
 set -e
 
 playbook="$INPUT_PLAYBOOK"
+directory="$INPUT_DIRECTORY"
 key="$INPUT_KEY"
 options="$INPUT_OPTIONS"
 
@@ -14,6 +15,10 @@ fi
 if test -z "$key"; then
     echo "You need to specify 'key' input (SSH private key)"
     exit 1
+fi
+
+if test -n "$directory"; then
+    cd "$directory"
 fi
 
 mkdir -p "$HOME/.ssh"
