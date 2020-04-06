@@ -38,7 +38,6 @@ fi
 if test -n "$inventory"; then
     echo "==> Setting inventory"
     echo "$inventory" > "$inventory_file"
-    cat $inventory_file
     options="$options --inventory $inventory_file"
 fi
 
