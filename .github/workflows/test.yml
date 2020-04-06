@@ -36,6 +36,6 @@ jobs:
         with:
           playbook: playbook.yml
           key: ${{secrets.SSH_PRIVATE_KEY}}
-          options: >
+          options: |
             --inventory hosts
             --limit local
