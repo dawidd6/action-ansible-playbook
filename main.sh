@@ -36,8 +36,9 @@ if test -n "$options"; then
 fi
 
 if test -n "$inventory"; then
-    echo "==> Writing inventory with custom content:"
-    echo -e "$inventory" | tee "$inventory_file"
+    echo "==> Setting inventory"
+    echo "$inventory" > "$inventory_file"
+    cat $inventory_file
     options="$options --inventory $inventory_file"
 fi
 
