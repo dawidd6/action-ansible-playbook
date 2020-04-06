@@ -39,3 +39,22 @@ jobs:
           options: |
             --inventory hosts
             --limit local
+  test-local-more:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Test local
+        uses: ./
+        with:
+          playbook: playbook.yml
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          vault_password: test
+          inventory: |
+            [remote]
+            host ansible_user=user
+
+            [local]
+            localhost ansible_user=root ansible_connection=local
+          options: |
+            --limit local
