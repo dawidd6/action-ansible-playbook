@@ -46,6 +46,6 @@ fi
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_FORCE_COLOR=True
 
-echo "[command]ansible-playbook $options $playbook"
+echo "[command]ansible-playbook $options $playbook" | tr -d '\n'
 
 ansible-playbook $options $playbook
