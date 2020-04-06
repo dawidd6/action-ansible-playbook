@@ -33,7 +33,7 @@ fi
 
 echo "options before: $options"
 if test -n "$options"; then
-    options="$(echo "$options" | tr '\n' ' ' | xargs)"
+    options="$(printf '%s' "$options" | tr '\n' ' ' | xargs)"
 fi
 echo "options after: $options"
 
