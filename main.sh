@@ -32,7 +32,7 @@ if test -n "$directory"; then
 fi
 
 if test -n "$options"; then
-    options="$(echo "$options" | tr '\n' ' ' | xargs)"
+    options="$(echo "$options" | tr '\n' ' ' | awk '{$1=$1};1')"
 fi
 
 if test -n "$inventory"; then
