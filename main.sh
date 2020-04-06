@@ -31,6 +31,10 @@ if test -n "$directory"; then
     cd "$directory"
 fi
 
+if test -n "$options"; then
+    options="$(echo "$options" | tr '\n' ' ')"
+fi
+
 if test -n "$inventory"; then
     echo "==> Writing inventory with custom content:"
     echo -e "$inventory" | tee "$inventory_file"
@@ -46,6 +50,6 @@ fi
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_FORCE_COLOR=True
 
-echo "[command]ansible-playbook $options $playbook" | tr -d '\n'
+echo "[command]ansible-playbook $options $playbook"
 
 ansible-playbook $options $playbook
