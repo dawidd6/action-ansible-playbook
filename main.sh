@@ -32,7 +32,7 @@ if test -n "$directory"; then
 fi
 
 if test -n "$options"; then
-    options="$(echo "$options" | tr '\n' ' ')"
+    options="$(echo "$options" | tr '\n' ' ' | xargs)"
 fi
 
 if test -n "$inventory"; then
