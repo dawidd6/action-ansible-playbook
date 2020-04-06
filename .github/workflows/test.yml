@@ -51,10 +51,8 @@ jobs:
           key: ${{secrets.SSH_PRIVATE_KEY}}
           vault_password: test
           inventory: |
-            [remote]
-            host ansible_user=user
-
-            [local]
+            [all]
             localhost ansible_user=root ansible_connection=local
           options: |
-            --limit local
+            -e key1=val1
+            -e key2=val2
