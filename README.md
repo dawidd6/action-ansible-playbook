@@ -19,7 +19,7 @@ An action that executes given Ansible playbook on selected hosts.
       example.com
     vault_password: ${{secrets.VAULT_PASSWORD}}
     options: |
-      --limit dev
+      --limit group1
       --extra-vars hello=there
       --verbose
 ```
