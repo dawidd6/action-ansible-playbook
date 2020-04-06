@@ -3,7 +3,7 @@ name: Test Action
 on: push
 
 jobs:
-  test:
+  test-remote:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -26,6 +26,11 @@ jobs:
             -e INPUT_KEY="${{secrets.SSH_PRIVATE_KEY}}" \
             -e INPUT_OPTIONS="--inventory hosts --limit remote" \
             action
+  test-local:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Test local
         uses: ./
         with:
