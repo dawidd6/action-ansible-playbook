@@ -8,24 +8,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Test remote
+      - name: Setup remote
         run: |
-          docker build -t host -f Dockerfile.test .
-          docker build -t action -f Dockerfile .
-          docker run -d \
-            --name host \
-            -e SSH_PUBLIC_KEY="${{secrets.SSH_PUBLIC_KEY}}" \
-            host
-          docker run -t \
-            --name action \
-            --link host \
-            -v $PWD:/wd \
-            -w /wd \
-            -e INPUT_PLAYBOOK="playbook.yml" \
-            -e INPUT_DIRECTORY="./" \
-            -e INPUT_KEY="${{secrets.SSH_PRIVATE_KEY}}" \
-            -e INPUT_OPTIONS="--inventory hosts --limit remote" \
-            action
+          echo "${{secrets.SSH_PUBLIC_KEY}}" | sudo tee /etc/ssh/authorized_keys
+          sudo tee /etc/ssh/sshd_config <<EOF
+            PasswordAuthentication no
+            PubkeyAuthentication yes
+            AuthorizedKeysFile /etc/ssh/authorized_keys
+            PermitRootLogin no
+            Subsystem sftp /usr/lib/openssh/sftp-server
+          EOF
+          sudo systemctl restart sshd
+      - name: Test remote
+        uses: ./
+        with:
+          playbook: playbook.yml
+          directory: ./
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          inventory: |
+            [all]
+            localhost
   test-local:
     runs-on: ubuntu-latest
     steps:
@@ -35,10 +37,9 @@ jobs:
         uses: ./
         with:
           playbook: playbook.yml
-          key: ${{secrets.SSH_PRIVATE_KEY}}
           options: |
-            --inventory hosts
-            --limit local
+            --inventory hosts  
+            --limit local  
   test-local-more:
     runs-on: ubuntu-latest
     steps:
@@ -48,11 +49,10 @@ jobs:
         uses: ./
         with:
           playbook: playbook.yml
-          key: ${{secrets.SSH_PRIVATE_KEY}}
           vault_password: test
           inventory: |
             [all]
-            localhost ansible_user=root ansible_connection=local
+            localhost ansible_connection=local
           options: |
             -e key1=val1
             -e key2=val2
