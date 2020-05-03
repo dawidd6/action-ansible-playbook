@@ -16,7 +16,7 @@ async function main() {
         let cmd = ["ansible-playbook", playbook]
 
         if (options) {
-            cmd.push(options.replace("\n", " "))
+            cmd.push(options.replace(/\n/g, " "))
         }
 
         if (directory) {
