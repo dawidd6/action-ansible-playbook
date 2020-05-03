@@ -12,7 +12,7 @@ inputs:
     required: false
   key:
     description: SSH private key used to connect to the host
-    required: true
+    required: false
   inventory:
     description: Custom content to write into hosts
     required: false
@@ -23,5 +23,5 @@ inputs:
     description: Extra options that should be passed to ansible-playbook command
     required: false
 runs:
-  using: docker
-  image: Dockerfile
+  using: node12
+  main: main.js

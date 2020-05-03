@@ -1,5 +1,2 @@
-[remote]
-host ansible_user=user
-
 [local]
-localhost ansible_user=root ansible_connection=local
+localhost ansible_connection=local
