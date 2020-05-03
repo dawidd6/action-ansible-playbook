@@ -2,6 +2,8 @@
 
 An action that executes given Ansible playbook on selected hosts.
 
+Should work on any OS, if `ansible-playbook` command is available in `PATH`.
+
 ## Usage
 
 ```yaml
