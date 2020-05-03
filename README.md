@@ -6,7 +6,7 @@ An action that executes given Ansible playbook on selected hosts.
 
 ```yaml
 - name: Run playbook
-  uses: dawidd6/action-ansible-playbook@v1
+  uses: dawidd6/action-ansible-playbook@v2
   with:
     playbook: deploy.yml
     directory: ./
