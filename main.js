@@ -2,7 +2,6 @@ const core = require('@actions/core')
 const exec = require('@actions/exec')
 const fs = require('fs')
 const os = require('os')
-const path = require('path')
 
 async function main() {
     try {
@@ -26,6 +25,7 @@ async function main() {
         if (key) {
             const keyFile = ".ansible_key"
             fs.writeFileSync(keyFile, key + os.EOL, { mode: 0600 })
+            core.saveState("keyFile", keyFile)
             cmd.push("--key-file")
             cmd.push(keyFile)
         }
@@ -33,6 +33,7 @@ async function main() {
         if (inventory) {
             const inventoryFile = ".ansible_inventory"
             fs.writeFileSync(inventoryFile, inventory, { mode: 0600 })
+            core.saveState("inventoryFile", inventoryFile)
             cmd.push("--inventory-file")
             cmd.push(inventoryFile)
         }
@@ -40,6 +41,7 @@ async function main() {
         if (vaultPassword) {
             const vaultPasswordFile = ".ansible_vault_password"
             fs.writeFileSync(vaultPasswordFile, vaultPassword, { mode: 0600 })
+            core.saveState("vaultPasswordFile", vaultPasswordFile)
             cmd.push("--vault-password-file")
             cmd.push(vaultPasswordFile)
         }
