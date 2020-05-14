@@ -20,6 +20,7 @@ async function main() {
 
         if (directory) {
             process.chdir(directory)
+            core.saveState("directory", directory)
         }
 
         if (key) {

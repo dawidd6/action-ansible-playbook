@@ -8,9 +8,13 @@ function rm(file) {
 
 async function main() {
     try {
+        const directory = core.getState("directory")
         const keyFile = core.getState("keyFile")
         const inventoryFile = core.getState("inventoryFile")
         const vaultPasswordFile = core.getState("vaultPasswordFile")
+
+        if (directory)
+            process.chdir(directory)
 
         if (keyFile)
             rm(keyFile)
