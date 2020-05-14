@@ -23,7 +23,7 @@ jobs:
         uses: ./
         with:
           playbook: playbook.yml
-          directory: ./
+          directory: test
           key: ${{secrets.SSH_PRIVATE_KEY}}
           inventory: |
             [all]
