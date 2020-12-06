@@ -67,3 +67,11 @@ jobs:
           options: |
             -e key1=val1
             -e key2=val2
+      - name: Test local
+        uses: ./
+        with:
+          playbook: playbook.yml
+          vault_password: test
+          inventory: |
+            [all]
+            localhost ansible_connection=local
