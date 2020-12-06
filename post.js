@@ -2,8 +2,10 @@ const core = require('@actions/core')
 const fs = require('fs')
 
 function rm(file) {
-    core.info(`==> Deleting "${file}" file`)
-    fs.unlinkSync(file)
+    if (fs.existsSync(file)) {
+        core.info(`==> Deleting "${file}" file`)
+        fs.unlinkSync(file)
+    }
 }
 
 async function main() {
