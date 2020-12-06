@@ -7,6 +7,9 @@ inputs:
   playbook:
     description: Ansible playbook filepath
     required: true
+  requirements:
+    description: Ansible Galaxy requirements filepath
+    required: false
   directory:
     description: Root directory of Ansible project (defaults to current)
     required: false
