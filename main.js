@@ -6,6 +6,7 @@ const os = require('os')
 async function main() {
     try {
         const playbook = core.getInput("playbook", { required: true })
+        const requirements = core.getInput("requirements")
         const directory = core.getInput("directory")
         const key = core.getInput("key")
         const inventory = core.getInput("inventory")
@@ -21,6 +22,10 @@ async function main() {
         if (directory) {
             process.chdir(directory)
             core.saveState("directory", directory)
+        }
+
+        if (requirements) {
+            await exec.exec("ansible-galaxy", ["install", "-r", requirements])
         }
 
         if (key) {
