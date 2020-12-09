@@ -25,7 +25,8 @@ async function main() {
         }
 
         if (requirements) {
-            await exec.exec("ansible-galaxy", ["install", "-r", requirements])
+            await exec.exec("ansible-galaxy", ["role", "install", "-r", requirements])
+            await exec.exec("ansible-galaxy", ["collection", "install", "-r", requirements])
         }
 
         if (key) {
