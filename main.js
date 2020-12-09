@@ -1,5 +1,6 @@
 const core = require('@actions/core')
 const exec = require('@actions/exec')
+const yaml = require('yaml')
 const fs = require('fs')
 const os = require('os')
 
@@ -25,8 +26,17 @@ async function main() {
         }
 
         if (requirements) {
-            await exec.exec("ansible-galaxy", ["role", "install", "-r", requirements])
-            await exec.exec("ansible-galaxy", ["collection", "install", "-r", requirements])
+            const requirementsContent = fs.readFileSync(requirements, 'utf8')
+            const requirementsObject = yaml.parse(requirementsContent)
+
+            if (Array.isArray(requirementsObject)) {
+                await exec.exec("ansible-galaxy", ["install", "-r", requirements])
+            } else {
+                if (requirementsObject.roles)
+                    await exec.exec("ansible-galaxy", ["role", "install", "-r", requirements])
+                if (requirementsObject.collections)
+                    await exec.exec("ansible-galaxy", ["collection", "install", "-r", requirements])
+            }
         }
 
         if (key) {
