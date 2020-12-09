@@ -52,6 +52,14 @@ jobs:
           options: |
             --inventory hosts  
             --limit local  
+      - name: Test local
+        uses: ./
+        with:
+          playbook: playbook.yml
+          requirements: requirements-bundle.yml
+          options: |
+            --inventory hosts  
+            --limit local  
   test-local-more:
     runs-on: ubuntu-latest
     steps:
