@@ -1,0 +1,4 @@
+# https://galaxy.ansible.com/docs/using/installing.html
+- src: https://github.com/bennojoy/nginx
+  version: master
+  name: nginx_role

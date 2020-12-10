@@ -48,6 +48,15 @@ jobs:
         uses: ./
         with:
           playbook: playbook.yml
+          requirements: requirements.yml
+          options: |
+            --inventory hosts  
+            --limit local  
+      - name: Test local
+        uses: ./
+        with:
+          playbook: playbook.yml
+          requirements: requirements-bundle.yml
           options: |
             --inventory hosts  
             --limit local  

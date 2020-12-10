@@ -1,11 +1,13 @@
 const core = require('@actions/core')
 const exec = require('@actions/exec')
+const yaml = require('yaml')
 const fs = require('fs')
 const os = require('os')
 
 async function main() {
     try {
         const playbook = core.getInput("playbook", { required: true })
+        const requirements = core.getInput("requirements")
         const directory = core.getInput("directory")
         const key = core.getInput("key")
         const inventory = core.getInput("inventory")
@@ -21,6 +23,20 @@ async function main() {
         if (directory) {
             process.chdir(directory)
             core.saveState("directory", directory)
+        }
+
+        if (requirements) {
+            const requirementsContent = fs.readFileSync(requirements, 'utf8')
+            const requirementsObject = yaml.parse(requirementsContent)
+
+            if (Array.isArray(requirementsObject)) {
+                await exec.exec("ansible-galaxy", ["install", "-r", requirements])
+            } else {
+                if (requirementsObject.roles)
+                    await exec.exec("ansible-galaxy", ["role", "install", "-r", requirements])
+                if (requirementsObject.collections)
+                    await exec.exec("ansible-galaxy", ["collection", "install", "-r", requirements])
+            }
         }
 
         if (key) {
