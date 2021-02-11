@@ -13,6 +13,8 @@ async function main() {
         const inventory = core.getInput("inventory")
         const vaultPassword = core.getInput("vault_password")
         const options = core.getInput("options")
+        const sudo    = core.getInput("sudo")
+
 
         let cmd = ["ansible-playbook", playbook]
 
@@ -61,6 +63,10 @@ async function main() {
             core.saveState("vaultPasswordFile", vaultPasswordFile)
             cmd.push("--vault-password-file")
             cmd.push(vaultPasswordFile)
+        }
+
+        if (sudo) {
+            cmd.unshift("sudo")
         }
 
         process.env.ANSIBLE_HOST_KEY_CHECKING = "False"
