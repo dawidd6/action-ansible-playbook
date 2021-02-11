@@ -88,27 +88,24 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: With directory
-        uses: ./
-        with:
-          playbook: playbook.yml
-          directory: test
-          options: --inventory hosts
       - name: With requirements
         uses: ./
         with:
           playbook: playbook.yml
+          directory: test
           requirements: requirements.yml
           options: --inventory hosts
       - name: With requirements bundle
         uses: ./
         with:
           playbook: playbook.yml
+          directory: test
           requirements: requirements-bundle.yml
           options: --inventory hosts
       - name: With vault password
         uses: ./
         with:
           playbook: playbook.yml
+          directory: test
           vault_password: test
           options: --inventory hosts
