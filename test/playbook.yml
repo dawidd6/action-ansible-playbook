@@ -1,6 +1,10 @@
 - name: Test Action
   hosts: all
   tasks:
+    - name: Copy file
+      copy:
+        src: requirements.yml
+        dest: /tmp/requirements.yml
     - name: Install cowsay
       become: yes
       apt:
