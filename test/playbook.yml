@@ -1,7 +1,8 @@
 - name: Test Action
   hosts: all
   tasks:
-    - name: Copy action.yml
-      copy:
-        src: ../action.yml
-        dest: /tmp/action.yml
+    - name: Install cowsay
+      become: yes
+      apt:
+        name: cowsay
+        update_cache: yes
