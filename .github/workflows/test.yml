@@ -7,14 +7,56 @@ on:
   pull_request:
 
 jobs:
-  test-remote:
+  remote:
     runs-on: ubuntu-latest
+    env:
+      SSH_PRIVATE_KEY: |
+        -----BEGIN OPENSSH PRIVATE KEY-----
+        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
+        -----END OPENSSH PRIVATE KEY-----
+      SSH_PUBLIC_KEY: |
+        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDWY9FVubMDUsZZuT2uT2U3ELfgztmUIeL84CCCUy0V8/p/3mGg0CZKCCiaVOBA3KyTX+RN+FW4i9UNWuhNXqLLEzpvR4E7BIyCVmfrQ89kJfMX5Wy1+sxQflV09u5qFVNbjneDVkCHAD4Q8MEwSnZXPNtmBft0I7RadisiteSd+In6w1gStWb1apjnxrtqiJjh4KBEP/0UYzIahByua4c9Hq0oI3TMihUqX/CPNYfaNFSFFtlt/tXvZU36VbAnJyIftX5KXhhmKhv8mZbQUg9xZySg7X6EtQBDQulJqgLLPu5r4bTCBGh4sfdzfbJBWMAcV6xjNDKaGf8pVkFE990jYePOqP5ydi/J/LS3dHz8rqt261FJhpCip8VoXGha2Xn0H+/n8gQTuzRmzLYHlknhJt1izWUDvhRQaf5eNdWivtNPG8NYFXzeekcUYE6GfeCpItFxnwktvspjkIaFunLfPvLkkNjSViJlpZdNRCYg59fnhyxO7jT7IKeUKNEdoM=
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup remote
         run: |
-          echo "${{secrets.SSH_PUBLIC_KEY}}" | sudo tee /etc/ssh/authorized_keys
+          echo "$SSH_PUBLIC_KEY" | sudo tee /etc/ssh/authorized_keys
           sudo tee /etc/ssh/sshd_config <<EOF
             PasswordAuthentication no
             PubkeyAuthentication yes
@@ -23,12 +65,14 @@ jobs:
             Subsystem sftp /usr/lib/openssh/sftp-server
           EOF
           sudo systemctl restart sshd
-      - name: Test remote
+      - name: With everything
         uses: ./
         with:
           playbook: playbook.yml
+          key: ${{env.SSH_PRIVATE_KEY}}
           directory: test
-          key: ${{secrets.SSH_PRIVATE_KEY}}
+          vault_password: test
+          requirements: requirements.yml
           inventory: |
             [all]
             localhost
@@ -39,48 +83,32 @@ jobs:
             -e db_name=db_name
             -e db_user=db_user
             -e db_pass=db_pass
-  test-local:
+  local:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Test local
+      - name: With directory
+        uses: ./
+        with:
+          playbook: playbook.yml
+          directory: test
+          options: --inventory hosts
+      - name: With requirements
         uses: ./
         with:
           playbook: playbook.yml
           requirements: requirements.yml
-          options: |
-            --inventory hosts  
-            --limit local  
-      - name: Test local
+          options: --inventory hosts
+      - name: With requirements bundle
         uses: ./
         with:
           playbook: playbook.yml
           requirements: requirements-bundle.yml
-          options: |
-            --inventory hosts  
-            --limit local  
-  test-local-more:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Test local
+          options: --inventory hosts
+      - name: With vault password
         uses: ./
         with:
           playbook: playbook.yml
           vault_password: test
-          inventory: |
-            [all]
-            localhost ansible_connection=local
-          options: |
-            -e key1=val1
-            -e key2=val2
-      - name: Test local
-        uses: ./
-        with:
-          playbook: playbook.yml
-          vault_password: test
-          inventory: |
-            [all]
-            localhost ansible_connection=local
+          options: --inventory hosts
