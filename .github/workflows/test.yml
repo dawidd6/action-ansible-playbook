@@ -65,11 +65,15 @@ jobs:
             Subsystem sftp /usr/lib/openssh/sftp-server
           EOF
           sudo systemctl restart sshd
+          echo 'SSH_KNOWN_HOSTS<<EOF' >> $GITHUB_ENV
+          echo $(ssh-keyscan localhost) >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
       - name: With everything
         uses: ./
         with:
           playbook: playbook.yml
           key: ${{env.SSH_PRIVATE_KEY}}
+          known_hosts: ${{env.SSH_KNOWN_HOSTS}}
           directory: test
           vault_password: test
           requirements: requirements.yml

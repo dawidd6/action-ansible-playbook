@@ -14,6 +14,7 @@ async function main() {
         const keyFile = core.getState("keyFile")
         const inventoryFile = core.getState("inventoryFile")
         const vaultPasswordFile = core.getState("vaultPasswordFile")
+        const knownHostsFile = core.getState("knownHostsFile")
 
         if (directory)
             process.chdir(directory)
@@ -26,6 +27,10 @@ async function main() {
 
         if (vaultPasswordFile)
             rm(vaultPasswordFile)
+
+        if (knownHostsFile)
+            rm(knownHostsFile)
+
     } catch (error) {
         core.setFailed(error.message)
     }
