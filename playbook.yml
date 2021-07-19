@@ -1,7 +1,0 @@
-- name: Test Action
-  hosts: all
-  tasks:
-    - name: Copy action.yml
-      copy:
-        src: action.yml
-        dest: /tmp/action.yml

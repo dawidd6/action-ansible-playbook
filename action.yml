@@ -22,6 +22,9 @@ inputs:
   vault_password:
     description: The password used for decrypting vaulted files
     required: false
+  known_hosts:
+    description: Contents of SSH known_hosts file
+    required: false
   options:
     description: Extra options that should be passed to ansible-playbook command
     required: false

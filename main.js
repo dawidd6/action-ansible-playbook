@@ -12,6 +12,7 @@ async function main() {
         const key = core.getInput("key")
         const inventory = core.getInput("inventory")
         const vaultPassword = core.getInput("vault_password")
+        const knownHosts = core.getInput("known_hosts")
         const options = core.getInput("options")
         const sudo    = core.getInput("sudo")
 
@@ -65,14 +66,33 @@ async function main() {
             cmd.push(vaultPasswordFile)
         }
 
+
         if (sudo) {
             cmd.unshift("sudo")
         }
 
-        process.env.ANSIBLE_HOST_KEY_CHECKING = "False"
+        if (knownHosts) {
+            const knownHostsFile = ".ansible_known_hosts"
+            fs.writeFileSync(knownHostsFile, knownHosts, { mode: 0600 })
+            core.saveState("knownHostsFile", knownHostsFile)
+            let known_hosts_param = [
+                "--ssh-common-args=",
+                "\"",
+                "-o UserKnownHostsFile=",
+                knownHostsFile,
+                "\""
+            ].join('')
+            cmd.push(known_hosts_param)
+            process.env.ANSIBLE_HOST_KEY_CHECKING = "True"
+        } else {
+            process.env.ANSIBLE_HOST_KEY_CHECKING = "False"
+        }
+
+
         process.env.ANSIBLE_FORCE_COLOR = "True"
 
-        await exec.exec(cmd.join(" "))
+        await exec.exec(cmd.join(' '))
+
     } catch (error) {
         core.setFailed(error.message)
     }
