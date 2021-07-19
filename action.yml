@@ -28,6 +28,9 @@ inputs:
   options:
     description: Extra options that should be passed to ansible-playbook command
     required: false
+  sudo:
+    description: Set to "true" if root is required for running your playbook
+    required: false
 runs:
   using: node12
   main: main.js
