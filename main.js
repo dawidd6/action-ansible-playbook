@@ -16,7 +16,6 @@ async function main() {
         const options = core.getInput("options")
         const sudo    = core.getInput("sudo")
 
-
         let cmd = ["ansible-playbook", playbook]
 
         if (options) {
@@ -66,11 +65,6 @@ async function main() {
             cmd.push(vaultPasswordFile)
         }
 
-
-        if (sudo) {
-            cmd.unshift("sudo")
-        }
-
         if (knownHosts) {
             const knownHostsFile = ".ansible_known_hosts"
             fs.writeFileSync(knownHostsFile, knownHosts, { mode: 0600 })
@@ -88,11 +82,13 @@ async function main() {
             process.env.ANSIBLE_HOST_KEY_CHECKING = "False"
         }
 
+        if (sudo) {
+            cmd.unshift("sudo")
+        }
 
         process.env.ANSIBLE_FORCE_COLOR = "True"
 
         await exec.exec(cmd.join(' '))
-
     } catch (error) {
         core.setFailed(error.message)
     }
