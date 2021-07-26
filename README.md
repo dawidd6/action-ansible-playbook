@@ -1,6 +1,6 @@
-# Run Ansible playbook Github Action
+# Run Ansible playbook GitHub Action
 
-An action that executes given Ansible playbook on selected hosts.
+An Action that executes given Ansible playbook on selected hosts.
 
 Should work on any OS, if `ansible-playbook` command is available in `PATH`.
 
@@ -23,6 +23,8 @@ Should work on any OS, if `ansible-playbook` command is available in `PATH`.
 
       [group1]
       example.com
+    # Optional, SSH known hosts file content
+    known_hosts: .known_hosts
     # Optional, encrypted vault password
     vault_password: ${{secrets.VAULT_PASSWORD}}
     # Optional, galaxy requirements filepath
