@@ -83,7 +83,7 @@ async function main() {
         }
 
         if (sudo) {
-            cmd.unshift("sudo")
+            cmd.unshift("sudo", "-E", "env", `PATH=${process.env.PATH}`)
         }
 
         process.env.ANSIBLE_FORCE_COLOR = "True"

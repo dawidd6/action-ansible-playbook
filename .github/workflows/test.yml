@@ -113,3 +113,10 @@ jobs:
           directory: test
           vault_password: test
           options: --inventory hosts
+      - name: With sudo
+        uses: ./
+        with:
+          playbook: playbook.yml
+          directory: test
+          sudo: true
+          options: --inventory hosts
