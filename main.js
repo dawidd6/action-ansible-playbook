@@ -69,7 +69,7 @@ async function main() {
             const knownHostsFile = ".ansible_known_hosts"
             fs.writeFileSync(knownHostsFile, knownHosts, { mode: 0600 })
             core.saveState("knownHostsFile", knownHostsFile)
-            cmd.push("--ssh-common-args", `'-o UserKnownHostsFile=${knownHostsFile}'`)
+            cmd.push(`--ssh-common-args="-o UserKnownHostsFile=${knownHostsFile}"`)
             process.env.ANSIBLE_HOST_KEY_CHECKING = "True"
         } else {
             process.env.ANSIBLE_HOST_KEY_CHECKING = "False"
