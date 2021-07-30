@@ -83,10 +83,10 @@ async function main() {
 
         const execOptions = {};
         execOptions.listeners = {
-          stdout: (data: Buffer) => {
+          stdout: function(data) {
             core.setOutput('stdout', data.toString());
           },
-          stderr: (data: Buffer) => {
+          stderr: function(data) {
             core.setOutput('stderr', data.toString());
           }
         };
