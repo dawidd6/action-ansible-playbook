@@ -16,10 +16,10 @@ async function main() {
         const options = core.getInput("options")
         const sudo    = core.getInput("sudo")
 
-        let args = [playbook]
+        let cmd = [playbook]
 
         if (options) {
-            args.push(options.replace(/\n/g, " "))
+            cmd.push(options.replace(/\n/g, " "))
         }
 
         if (directory) {
@@ -45,38 +45,38 @@ async function main() {
             const keyFile = ".ansible_key"
             fs.writeFileSync(keyFile, key + os.EOL, { mode: 0600 })
             core.saveState("keyFile", keyFile)
-            args.push("--key-file")
-            args.push(keyFile)
+            cmd.push("--key-file")
+            cmd.push(keyFile)
         }
 
         if (inventory) {
             const inventoryFile = ".ansible_inventory"
             fs.writeFileSync(inventoryFile, inventory, { mode: 0600 })
             core.saveState("inventoryFile", inventoryFile)
-            args.push("--inventory-file")
-            args.push(inventoryFile)
+            cmd.push("--inventory-file")
+            cmd.push(inventoryFile)
         }
 
         if (vaultPassword) {
             const vaultPasswordFile = ".ansible_vault_password"
             fs.writeFileSync(vaultPasswordFile, vaultPassword, { mode: 0600 })
             core.saveState("vaultPasswordFile", vaultPasswordFile)
-            args.push("--vault-password-file")
-            args.push(vaultPasswordFile)
+            cmd.push("--vault-password-file")
+            cmd.push(vaultPasswordFile)
         }
 
         if (knownHosts) {
             const knownHostsFile = ".ansible_known_hosts"
             fs.writeFileSync(knownHostsFile, knownHosts, { mode: 0600 })
             core.saveState("knownHostsFile", knownHostsFile)
-            args.push(`--ssh-common-args="-o UserKnownHostsFile=${knownHostsFile}"`)
+            cmd.push(`--ssh-common-args="-o UserKnownHostsFile=${knownHostsFile}"`)
             process.env.ANSIBLE_HOST_KEY_CHECKING = "True"
         } else {
             process.env.ANSIBLE_HOST_KEY_CHECKING = "False"
         }
 
         if (sudo) {
-            args.unshift("sudo", "-E", "env", `PATH=${process.env.PATH}`)
+            cmd.unshift("sudo", "-E", "env", `PATH=${process.env.PATH}`)
         }
 
         process.env.ANSIBLE_FORCE_COLOR = "True"
@@ -91,7 +91,7 @@ async function main() {
           }
         }
 
-        await exec.exec("ansible-playbook", args, execOptions)
+        await exec.exec("ansible-playbook", cmd, execOptions)
     } catch (error) {
         core.setFailed(error.message)
     }
