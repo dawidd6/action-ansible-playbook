@@ -16,7 +16,7 @@ async function main() {
         const options = core.getInput("options")
         const sudo    = core.getInput("sudo")
 
-        let args = ["ansible-playbook", playbook]
+        let args = [playbook]
 
         if (options) {
             args.push(options.replace(/\n/g, " "))
@@ -91,7 +91,7 @@ async function main() {
           }
         }
 
-        await exec.exec(args.join(' '), execOptions)
+        await exec.exec("ansible-playbook", args, execOptions)
     } catch (error) {
         core.setFailed(error.message)
     }
