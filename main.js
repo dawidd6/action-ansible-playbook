@@ -81,7 +81,7 @@ async function main() {
 
         process.env.ANSIBLE_FORCE_COLOR = "True"
 
-        const execOptions = {};
+        const execOptions = {}
         execOptions.listeners = {
           stdout: function(data) {
             core.setOutput('stdout', data.toString());
@@ -89,7 +89,7 @@ async function main() {
           stderr: function(data) {
             core.setOutput('stderr', data.toString());
           }
-        };
+        }
 
         await exec.exec(cmd.join(' '), execOptions)
     } catch (error) {
