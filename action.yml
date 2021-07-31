@@ -32,10 +32,8 @@ inputs:
     description: Set to "true" if root is required for running your playbook
     required: false
 outputs:
-  stdout:
-    description: The captured output of stdout from the Ansible Playbook run
-  stderr:
-    description: The captured output of stderr from the Ansible Playbook run
+  output:
+    description: The captured output of both stdout and stderr from the Ansible Playbook run
 runs:
   using: node12
   main: main.js
