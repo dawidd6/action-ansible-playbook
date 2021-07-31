@@ -81,17 +81,21 @@ async function main() {
 
         process.env.ANSIBLE_FORCE_COLOR = "True"
 
+        let stdout = ''
+        let stderr = ''
         const execOptions = {}
         execOptions.listeners = {
           stdout: function(data) {
-            core.setOutput('stdout', data.toString());
+            stdout += data.toString()
           },
           stderr: function(data) {
-            core.setOutput('stderr', data.toString());
+            stderr += data.toString()
           }
         }
 
         await exec.exec("ansible-playbook", cmd, execOptions)
+        core.setOutput('stdout', stdout)
+        core.setOutput('stderr', stderr)
     } catch (error) {
         core.setFailed(error.message)
     }
