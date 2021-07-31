@@ -81,7 +81,18 @@ async function main() {
 
         process.env.ANSIBLE_FORCE_COLOR = "True"
 
-        await exec.exec(cmd.join(' '))
+        let output = ""
+        await exec.exec(cmd.join(' '), null, {
+          listeners: {
+            stdout: function(data) {
+              output += data.toString()
+            },
+            stderr: function(data) {
+              output += data.toString()
+            }
+          }
+        })
+        core.setOutput("output", output)
     } catch (error) {
         core.setFailed(error.message)
     }
