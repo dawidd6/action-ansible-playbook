@@ -31,6 +31,9 @@ inputs:
   sudo:
     description: Set to "true" if root is required for running your playbook
     required: false
+  no_color:
+    description: Set to "true" if the Ansible output should not include colors (defaults to "false")
+    required: false
 runs:
   using: node12
   main: main.js
