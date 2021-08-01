@@ -15,6 +15,7 @@ async function main() {
         const knownHosts = core.getInput("known_hosts")
         const options = core.getInput("options")
         const sudo    = core.getInput("sudo")
+        const noColor = core.getInput("no_color")
 
         let cmd = ["ansible-playbook", playbook]
 
@@ -79,7 +80,11 @@ async function main() {
             cmd.unshift("sudo", "-E", "env", `PATH=${process.env.PATH}`)
         }
 
-        process.env.ANSIBLE_FORCE_COLOR = "True"
+        if (noColor) {
+            process.env.ANSIBLE_NOCOLOR = "True"
+        } else {
+            process.env.ANSIBLE_FORCE_COLOR = "True"
+        }
 
         let output = ""
         await exec.exec(cmd.join(' '), null, {
