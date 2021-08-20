@@ -2,7 +2,7 @@
   "name": "action-ansible-playbook",
   "main": "main.js",
   "dependencies": {
-    "@actions/core": "^1.2.7",
+    "@actions/core": "^1.5.0",
     "@actions/exec": "^1.0.4",
     "yaml": "^1.10.2"
   }
