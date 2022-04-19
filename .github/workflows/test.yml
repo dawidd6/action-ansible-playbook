@@ -53,7 +53,7 @@ jobs:
         ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDWY9FVubMDUsZZuT2uT2U3ELfgztmUIeL84CCCUy0V8/p/3mGg0CZKCCiaVOBA3KyTX+RN+FW4i9UNWuhNXqLLEzpvR4E7BIyCVmfrQ89kJfMX5Wy1+sxQflV09u5qFVNbjneDVkCHAD4Q8MEwSnZXPNtmBft0I7RadisiteSd+In6w1gStWb1apjnxrtqiJjh4KBEP/0UYzIahByua4c9Hq0oI3TMihUqX/CPNYfaNFSFFtlt/tXvZU36VbAnJyIftX5KXhhmKhv8mZbQUg9xZySg7X6EtQBDQulJqgLLPu5r4bTCBGh4sfdzfbJBWMAcV6xjNDKaGf8pVkFE990jYePOqP5ydi/J/LS3dHz8rqt261FJhpCip8VoXGha2Xn0H+/n8gQTuzRmzLYHlknhJt1izWUDvhRQaf5eNdWivtNPG8NYFXzeekcUYE6GfeCpItFxnwktvspjkIaFunLfPvLkkNjSViJlpZdNRCYg59fnhyxO7jT7IKeUKNEdoM=
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup remote
         run: |
           echo "$SSH_PUBLIC_KEY" | sudo tee /etc/ssh/authorized_keys
@@ -91,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: With requirements
         uses: ./
         with:
