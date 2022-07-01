@@ -16,6 +16,7 @@ async function main() {
         const options = core.getInput("options")
         const sudo    = core.getInput("sudo")
         const noColor = core.getInput("no_color")
+        const limit = core.getInput("limit")
 
         let cmd = ["ansible-playbook", playbook]
 
@@ -48,6 +49,11 @@ async function main() {
             core.saveState("keyFile", keyFile)
             cmd.push("--key-file")
             cmd.push(keyFile)
+        }
+        
+        if(limit) {
+            cmd.push("--limit");
+            cmd.push(limit);
         }
 
         if (inventory) {
