@@ -23,6 +23,11 @@ async function main() {
         if (options) {
             cmd.push(options.replace(/\n/g, " "))
         }
+        
+        if(limit) {
+            cmd.push("--limit")
+            cmd.push(limit)
+        }
 
         if (directory) {
             process.chdir(directory)
@@ -49,11 +54,6 @@ async function main() {
             core.saveState("keyFile", keyFile)
             cmd.push("--key-file")
             cmd.push(keyFile)
-        }
-        
-        if(limit) {
-            cmd.push("--limit");
-            cmd.push(limit);
         }
 
         if (inventory) {
