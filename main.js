@@ -17,6 +17,7 @@ async function main() {
         const sudo    = core.getInput("sudo")
         const noColor = core.getInput("no_color")
         const limit = core.getInput("limit")
+        const local_inventory = core.getInput("local_inventory")
 
         let cmd = ["ansible-playbook", playbook]
 
@@ -64,9 +65,9 @@ async function main() {
             cmd.push(inventoryFile)
         }
 
-        if(localinventory) {
+        if(local_inventory) {
             cmd.push("--inventory-file")
-            cmd.push(localinventory)
+            cmd.push(local_inventory)
         }
 
         if (vaultPassword) {

@@ -19,7 +19,7 @@ inputs:
   inventory:
     description: Custom content to write into hosts
     required: false
-  localinventory:
+  local_inventory:
     description: Inventory file from repo
     required: false
   vault_password:
