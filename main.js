@@ -64,6 +64,11 @@ async function main() {
             cmd.push(inventoryFile)
         }
 
+        if(localinventory) {
+            cmd.push("--inventory-file")
+            cmd.push(localinventory)
+        }
+
         if (vaultPassword) {
             const vaultPasswordFile = ".ansible_vault_password"
             fs.writeFileSync(vaultPasswordFile, vaultPassword, { mode: 0600 })
