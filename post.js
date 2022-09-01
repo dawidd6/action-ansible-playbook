@@ -3,7 +3,7 @@ const fs = require('fs')
 
 function rm(file) {
     if (fs.existsSync(file)) {
-        core.info(`==> Deleting "${file}" file`)
+        core.info(`Deleting "${file}" file`)
         fs.unlinkSync(file)
     }
 }
