@@ -24,7 +24,8 @@ Should work on any OS, if `ansible-playbook` command is available in `PATH`.
       [group1]
       example.com
     # Optional, SSH known hosts file content
-    known_hosts: .known_hosts
+    known_hosts: |
+      example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
     # Optional, encrypted vault password
     vault_password: ${{secrets.VAULT_PASSWORD}}
     # Optional, galaxy requirements filepath
