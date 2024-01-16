@@ -11,6 +11,7 @@ function rm(file) {
 async function main() {
     try {
         const directory = core.getState("directory")
+        const ansibleConfigurationFile = core.getState("ansibleConfigurationFile")
         const keyFile = core.getState("keyFile")
         const inventoryFile = core.getState("inventoryFile")
         const vaultPasswordFile = core.getState("vaultPasswordFile")
@@ -18,6 +19,9 @@ async function main() {
 
         if (directory)
             process.chdir(directory)
+        
+        if (ansibleConfigurationFile)
+            rm(ansibleConfigurationFile)
 
         if (keyFile)
             rm(keyFile)

@@ -13,6 +13,9 @@ inputs:
   directory:
     description: Root directory of Ansible project (defaults to current)
     required: false
+  configuration:
+    description: Ansible configuration file content (ansible.cfg)
+    required: false
   key:
     description: SSH private key used to connect to the host
     required: false
