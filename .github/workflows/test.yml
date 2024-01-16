@@ -75,6 +75,11 @@ jobs:
           key: ${{env.SSH_PRIVATE_KEY}}
           known_hosts: ${{env.SSH_KNOWN_HOSTS}}
           directory: test
+          configuration: |
+            [defaults]
+            callbacks_enabled = ansible.posix.profile_tasks, ansible.posix.timer
+            stdout_callback = yaml
+            nocows = false
           vault_password: test
           requirements: requirements.yml
           inventory: |
@@ -97,6 +102,7 @@ jobs:
         with:
           playbook: playbook.yml
           directory: test
+          configuration: ansible.cfg
           requirements: requirements.yml
           options: --inventory hosts
       - name: With requirements bundle
