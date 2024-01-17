@@ -75,6 +75,11 @@ jobs:
           key: ${{env.SSH_PRIVATE_KEY}}
           known_hosts: ${{env.SSH_KNOWN_HOSTS}}
           directory: test
+          configuration: |
+            [defaults]
+            callbacks_enabled = ansible.posix.profile_tasks, ansible.posix.timer
+            stdout_callback = yaml
+            nocows = false
           vault_password: test
           requirements: requirements.yml
           inventory: |
@@ -92,6 +97,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: With custom ansible.cfg
+        uses: ./
+        with:
+          playbook: playbook.yml
+          directory: test
+          configuration: |
+            [defaults]
+            callbacks_enabled = ansible.posix.profile_tasks, ansible.posix.timer
+            stdout_callback = yaml
+            nocows = false
+          options: --inventory hosts
       - name: With requirements
         uses: ./
         with:

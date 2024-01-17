@@ -9,6 +9,7 @@ async function main() {
         const playbook = core.getInput("playbook", { required: true })
         const requirements = core.getInput("requirements")
         const directory = core.getInput("directory")
+        const configuration = core.getInput("configuration")
         const key = core.getInput("key")
         const inventory = core.getInput("inventory")
         const vaultPassword = core.getInput("vault_password")
@@ -16,6 +17,7 @@ async function main() {
         const options = core.getInput("options")
         const sudo    = core.getInput("sudo")
         const noColor = core.getInput("no_color")
+        const fileMode = 0600
 
         let cmd = ["ansible-playbook", playbook]
 
@@ -26,6 +28,12 @@ async function main() {
         if (directory) {
             process.chdir(directory)
             core.saveState("directory", directory)
+        }
+
+        if (configuration) {
+            const ansibleConfigurationFile = "ansible.cfg"
+            fs.writeFileSync(ansibleConfigurationFile, configuration, { mode: fileMode })
+            core.saveState("ansibleConfigurationFile", ansibleConfigurationFile)
         }
 
         if (requirements) {
@@ -44,7 +52,7 @@ async function main() {
 
         if (key) {
             const keyFile = ".ansible_key"
-            fs.writeFileSync(keyFile, key + os.EOL, { mode: 0600 })
+            fs.writeFileSync(keyFile, key + os.EOL, { mode: fileMode })
             core.saveState("keyFile", keyFile)
             cmd.push("--key-file")
             cmd.push(keyFile)
@@ -52,7 +60,7 @@ async function main() {
 
         if (inventory) {
             const inventoryFile = ".ansible_inventory"
-            fs.writeFileSync(inventoryFile, inventory, { mode: 0600 })
+            fs.writeFileSync(inventoryFile, inventory, { mode: fileMode })
             core.saveState("inventoryFile", inventoryFile)
             cmd.push("--inventory-file")
             cmd.push(inventoryFile)
@@ -60,7 +68,7 @@ async function main() {
 
         if (vaultPassword) {
             const vaultPasswordFile = ".ansible_vault_password"
-            fs.writeFileSync(vaultPasswordFile, vaultPassword, { mode: 0600 })
+            fs.writeFileSync(vaultPasswordFile, vaultPassword, { mode: fileMode })
             core.saveState("vaultPasswordFile", vaultPasswordFile)
             cmd.push("--vault-password-file")
             cmd.push(vaultPasswordFile)
@@ -68,7 +76,7 @@ async function main() {
 
         if (knownHosts) {
             const knownHostsFile = ".ansible_known_hosts"
-            fs.writeFileSync(knownHostsFile, knownHosts, { mode: 0600 })
+            fs.writeFileSync(knownHostsFile, knownHosts, { mode: fileMode })
             core.saveState("knownHostsFile", knownHostsFile)
             cmd.push(`--ssh-common-args="-o UserKnownHostsFile=${knownHostsFile}"`)
             process.env.ANSIBLE_HOST_KEY_CHECKING = "True"

@@ -14,6 +14,12 @@ Should work on any OS, if `ansible-playbook` command is available in `PATH`.
     playbook: deploy.yml
     # Optional, directory where playbooks live
     directory: ./
+    # Optional, ansible configuration file content (ansible.cfg)
+    configuration: |
+      [defaults]
+      callbacks_enabled = ansible.posix.profile_tasks, ansible.posix.timer
+      stdout_callback = yaml
+      nocows = false
     # Optional, SSH private key
     key: ${{secrets.SSH_PRIVATE_KEY}}
     # Optional, literal inventory file contents
