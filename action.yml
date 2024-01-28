@@ -41,6 +41,6 @@ outputs:
   output:
     description: The captured output of both stdout and stderr from the Ansible Playbook run
 runs:
-  using: node16
+  using: node20
   main: main.js
   post: post.js
