@@ -34,15 +34,15 @@ inputs:
   sudo:
     description: Set to "true" if root is required for running your playbook
     required: false
-    default: "false"
+    default: false
   no_color:
     description: Set to "true" if the Ansible output should not include colors (defaults to "false")
     required: false
-    default: "false"
+    default: false
   check_mode:
     description: Set to "true" to enable check (dry-run) mode
     required: false
-    default: "false"
+    default: false
 outputs:
   output:
     description: The captured output of both stdout and stderr from the Ansible Playbook run
