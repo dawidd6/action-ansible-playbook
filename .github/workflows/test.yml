@@ -102,7 +102,7 @@ jobs:
         with:
           playbook: playbook.yml
           directory: test
-          check: true
+          check_mode: true
           options: --inventory hosts
       - name: With custom ansible.cfg
         uses: ./
