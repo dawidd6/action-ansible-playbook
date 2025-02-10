@@ -17,6 +17,7 @@ async function main() {
         const options = core.getInput("options")
         const sudo    = core.getInput("sudo")
         const noColor = core.getInput("no_color")
+        const checkMode = core.getInput("check_mode")
         const fileMode = 0600
 
         let cmd = ["ansible-playbook", playbook]
@@ -92,6 +93,10 @@ async function main() {
             process.env.ANSIBLE_NOCOLOR = "True"
         } else {
             process.env.ANSIBLE_FORCE_COLOR = "True"
+        }
+
+        if (checkMode) {
+            cmd.push("--check")
         }
 
         let output = ""

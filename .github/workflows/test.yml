@@ -97,6 +97,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: With check mode
+        uses: ./
+        with:
+          playbook: playbook.yml
+          directory: test
+          check: true
+          options: --inventory hosts
       - name: With custom ansible.cfg
         uses: ./
         with:
