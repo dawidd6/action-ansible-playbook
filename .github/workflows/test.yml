@@ -64,7 +64,7 @@ jobs:
             PermitRootLogin no
             Subsystem sftp /usr/lib/openssh/sftp-server
           EOF
-          sudo systemctl restart sshd
+          sudo systemctl restart ssh
           echo 'SSH_KNOWN_HOSTS<<EOF' >> $GITHUB_ENV
           echo $(ssh-keyscan localhost) >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
