@@ -15,8 +15,9 @@ async function main() {
         const vaultPassword = core.getInput("vault_password")
         const knownHosts = core.getInput("known_hosts")
         const options = core.getInput("options")
-        const sudo    = core.getInput("sudo")
-        const noColor = core.getInput("no_color")
+        const sudo    = core.getBooleanInput("sudo")
+        const noColor = core.getBooleanInput("no_color")
+        const checkMode = core.getBooleanInput("check_mode")
         const fileMode = 0600
 
         let cmd = ["ansible-playbook", playbook]
@@ -92,6 +93,10 @@ async function main() {
             process.env.ANSIBLE_NOCOLOR = "True"
         } else {
             process.env.ANSIBLE_FORCE_COLOR = "True"
+        }
+
+        if (checkMode) {
+            cmd.push("--check")
         }
 
         let output = ""
