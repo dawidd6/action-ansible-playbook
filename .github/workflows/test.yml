@@ -26,6 +26,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup remote
         run: |
+          mkdir "$HOME/.ssh"
           echo "$SSH_PUBLIC_KEY" | tee "$HOME/.ssh/authorized_keys"
           chmod 600 "$HOME/.ssh/authorized_keys"
           echo 'SSH_KNOWN_HOSTS<<EOF' >> $GITHUB_ENV
