@@ -26,15 +26,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup remote
         run: |
-          mkdir -p "$HOME/.ssh"
           echo "$SSH_PUBLIC_KEY" | tee "$HOME/.ssh/authorized_keys"
-          echo "$SSH_PRIVATE_KEY" | tee /tmp/key
-          chmod 600 /tmp/key
           chmod 600 "$HOME/.ssh/authorized_keys"
           echo 'SSH_KNOWN_HOSTS<<EOF' >> $GITHUB_ENV
           echo $(ssh-keyscan localhost 2>/dev/null) >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-          ssh -i /tmp/key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no localhost whoami
       - name: With everything
         uses: ./
         with:
@@ -53,7 +49,7 @@ jobs:
             [all]
             localhost
           options: |
-            -vvv
+            -vv
             -e docker_image=docker_url
             -e docker_username=user
             -e docker_password=pass
