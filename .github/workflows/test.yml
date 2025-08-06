@@ -26,19 +26,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup remote
         run: |
-          echo "$SSH_PUBLIC_KEY" | sudo tee /etc/ssh/authorized_keys
-          sudo chmod 600 /etc/ssh/authorized_keys
-          sudo tee /etc/ssh/sshd_config <<EOF
-            PasswordAuthentication no
-            PubkeyAuthentication yes
-            AuthorizedKeysFile /etc/ssh/authorized_keys
-            PermitRootLogin no
-            Subsystem sftp /usr/lib/openssh/sftp-server
-          EOF
-          sudo systemctl restart ssh
+          mkdir -p "$HOME/.ssh"
+          echo "$SSH_PUBLIC_KEY" | tee "$HOME/.ssh/authorized_keys"
+          chmod 600 "$HOME/.ssh/authorized_keys"
           echo 'SSH_KNOWN_HOSTS<<EOF' >> $GITHUB_ENV
           echo $(ssh-keyscan localhost) >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
+          ssh -i <(echo "$SSH_PRIVATE_KEY") localhost whoami
       - name: With everything
         uses: ./
         with:
