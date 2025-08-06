@@ -32,9 +32,9 @@ jobs:
           chmod 600 /tmp/key
           chmod 600 "$HOME/.ssh/authorized_keys"
           echo 'SSH_KNOWN_HOSTS<<EOF' >> $GITHUB_ENV
-          echo $(ssh-keyscan localhost) >> $GITHUB_ENV
+          echo $(ssh-keyscan localhost 2>/dev/null) >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-          ssh -i /tmp/key localhost whoami
+          ssh -i /tmp/key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no localhost whoami
       - name: With everything
         uses: ./
         with:
