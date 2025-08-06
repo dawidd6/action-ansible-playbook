@@ -11,7 +11,7 @@ jobs:
   remote:
     runs-on: ubuntu-latest
     env:
-      SSH_PRIVATE_KEY: |
+      SSH_PRIVATE_KEY: |-
         -----BEGIN OPENSSH PRIVATE KEY-----
         b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
         QyNTUxOQAAACDOZViU5W+blYnk79GYr7IdVOfXRl69cgwmyM3s3jghdgAAAJCwXk9osF5P
@@ -19,7 +19,7 @@ jobs:
         AAAEBJXcxT+1llev7YeIFbFLGAO4qv3IMauUfF211JU/uVp85lWJTlb5uVieTv0Zivsh1U
         59dGXr1yDCbIzezeOCF2AAAABm5vbmFtZQECAwQFBgc=
         -----END OPENSSH PRIVATE KEY-----
-      SSH_PUBLIC_KEY: |
+      SSH_PUBLIC_KEY: |-
         ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM5lWJTlb5uVieTv0Zivsh1U59dGXr1yDCbIzezeOCF2 noname
     steps:
       - name: Checkout code
@@ -27,6 +27,7 @@ jobs:
       - name: Setup remote
         run: |
           echo "$SSH_PUBLIC_KEY" | sudo tee /etc/ssh/authorized_keys
+          sudo chmod 600 /etc/ssh/authorized_keys
           sudo tee /etc/ssh/sshd_config <<EOF
             PasswordAuthentication no
             PubkeyAuthentication yes
@@ -56,6 +57,7 @@ jobs:
             [all]
             localhost
           options: |
+            -vvv
             -e docker_image=docker_url
             -e docker_username=user
             -e docker_password=pass
