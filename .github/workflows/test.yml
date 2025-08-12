@@ -23,7 +23,7 @@ jobs:
         ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM5lWJTlb5uVieTv0Zivsh1U59dGXr1yDCbIzezeOCF2 noname
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup remote
         run: |
           mkdir "$HOME/.ssh"
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: With check mode
         uses: ./
         with:
