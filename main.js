@@ -63,7 +63,7 @@ async function main() {
             const inventoryFile = ".ansible_inventory"
             fs.writeFileSync(inventoryFile, inventory, { mode: fileMode })
             core.saveState("inventoryFile", inventoryFile)
-            cmd.push("--inventory-file")
+            cmd.push("--inventory")
             cmd.push(inventoryFile)
         }
 
