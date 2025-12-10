@@ -4,6 +4,6 @@
   "dependencies": {
     "@actions/core": "^2.0.0",
     "@actions/exec": "^2.0.0",
-    "yaml": "^2.8.1"
+    "yaml": "^2.8.2"
   }
 }
