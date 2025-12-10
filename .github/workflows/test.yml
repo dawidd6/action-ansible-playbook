@@ -42,7 +42,7 @@ jobs:
           configuration: |
             [defaults]
             callbacks_enabled = ansible.posix.profile_tasks, ansible.posix.timer
-            stdout_callback = yaml
+            stdout_callback = debug
             nocows = false
           vault_password: test
           requirements: requirements.yml
@@ -77,7 +77,7 @@ jobs:
           configuration: |
             [defaults]
             callbacks_enabled = ansible.posix.profile_tasks, ansible.posix.timer
-            stdout_callback = yaml
+            stdout_callback = debug
             nocows = false
           options: --inventory hosts
       - name: With requirements
