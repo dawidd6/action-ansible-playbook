@@ -1,8 +1,8 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
-import yaml from 'yaml'
-import fs from 'fs'
-import os from 'os'
+import * as yaml from 'yaml'
+import * as fs from 'node:fs'
+import * as os from 'node:os'
 
 async function main() {
     try {

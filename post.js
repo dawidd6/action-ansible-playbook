@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import fs from 'fs'
+import * as fs from 'node:fs'
 
 function rm(file) {
     if (fs.existsSync(file)) {
