@@ -1,8 +1,8 @@
-const core = require('@actions/core')
-const exec = require('@actions/exec')
-const yaml = require('yaml')
-const fs = require('fs')
-const os = require('os')
+import * as core from '@actions/core'
+import * as exec from '@actions/exec'
+import * as yaml from 'yaml'
+import * as fs from 'node:fs'
+import * as os from 'node:os'
 
 async function main() {
     try {
@@ -18,7 +18,7 @@ async function main() {
         const sudo    = core.getBooleanInput("sudo")
         const noColor = core.getBooleanInput("no_color")
         const checkMode = core.getBooleanInput("check_mode")
-        const fileMode = 0600
+        const fileMode = 0o600
 
         let cmd = ["ansible-playbook", playbook]
 
