@@ -1,5 +1,5 @@
-const core = require('@actions/core')
-const fs = require('fs')
+import * as core from '@actions/core'
+import fs from 'fs'
 
 function rm(file) {
     if (fs.existsSync(file)) {
