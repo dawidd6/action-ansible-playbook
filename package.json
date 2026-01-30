@@ -3,7 +3,7 @@
   "main": "main.js",
   "dependencies": {
     "@actions/core": "^3.0.0",
-    "@actions/exec": "^2.0.0",
+    "@actions/exec": "^3.0.0",
     "yaml": "^2.8.2"
   }
 }
