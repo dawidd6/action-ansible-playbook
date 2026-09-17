@@ -3,8 +3,10 @@ import * as exec from '@actions/exec'
 import * as yaml from 'yaml'
 import * as fs from 'node:fs'
 import * as os from 'node:os'
+import { writeSummary } from './lib/summary.js'
 
 async function main() {
+    let output = ""
     try {
         const playbook = core.getInput("playbook", { required: true })
         const requirements = core.getInput("requirements")
@@ -99,7 +101,6 @@ async function main() {
             cmd.push("--check")
         }
 
-        let output = ""
         await exec.exec(cmd.join(' '), null, {
           listeners: {
             stdout: function(data) {
@@ -111,7 +112,24 @@ async function main() {
           }
         })
         core.setOutput("output", output)
+
+        writeSummary({
+            success: true,
+            output,
+            summaryFile: process.env.GITHUB_STEP_SUMMARY,
+            onError: (summaryError) => core.warning(`Failed to write job summary: ${summaryError.message}`)
+        })
     } catch (error) {
+        core.setOutput("output", output)
+
+        writeSummary({
+            success: false,
+            errorMessage: error.message,
+            output,
+            summaryFile: process.env.GITHUB_STEP_SUMMARY,
+            onError: (summaryError) => core.warning(`Failed to write job summary: ${summaryError.message}`)
+        })
+
         core.setFailed(error.message)
     }
 }
