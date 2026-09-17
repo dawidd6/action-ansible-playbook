@@ -2,6 +2,9 @@
   "name": "action-ansible-playbook",
   "type": "module",
   "main": "main.js",
+  "scripts": {
+    "test": "node --test"
+  },
   "dependencies": {
     "@actions/core": "^3.0.1",
     "@actions/exec": "^3.0.0",
